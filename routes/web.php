@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('manager')
+->middleware('can:manager-higher')
+->group(function(){
+        Route::get('events/past', [EventController::class, 'past'])->name('events.past');
+        Route::resource('events', EventController::class);
+    });
+
+Route::middleware('can:user-higher')
+->group(function(){
+    Route::get('index', function () {
+        dd('user');
+    });
 });
 
 Route::middleware([
