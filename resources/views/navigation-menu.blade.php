@@ -15,6 +15,9 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
+                        マイページ
+                    </x-nav-link>                    
                     @can('manager-higher')
                     <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                         イベント管理
@@ -145,6 +148,9 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
+                マイページ
+            </x-responsive-nav-link>            
             <x-responsive-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                 イベント管理
             </x-responsive-nav-link>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pt-4 pb-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             
@@ -18,7 +18,8 @@
                 </div>
             @endif
     
-            <form method="get" action="{{ route('events.edit', ['event' => $event->id ]) }}">
+            <form method="post" action="{{ route('events.reserve', ['id' => $event->id ]) }}">
+                @csrf
                 <div>
                     <x-label for="event_name" value="イベント名" />
                     {{ $event->name }}
@@ -49,57 +50,36 @@
                         <x-label for="max_people" value="定員数" />
                         {{ $event->max_people }}
                     </div>
-                    <div class="flex space-x-4 justify-around">
-                        @if($event->is_visible)
-                            表示中
+
+                    <div class="mt-4">
+                        @if($reservablePeople <= 0 )
+                            <span class="text-red-500 text-xs">このイベントは満員です。</span>
                         @else
-                            非表示
+                        <x-label for="reserved_people" value="予約人数" />
+                        <select name="reserved_people">
+                            @for($i = 1; $i <= $reservablePeople; $i++ )
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                        </select>
                         @endif
                     </div>
+                </div>
+                
 
-                    @if($event->eventDate >= \Carbon\Carbon::today()->format('Y年m月d日') )
+                    @if($isReserved === null)
+                        <input type="hidden" name="id" value="{{ $event->id }}">  
+                        @if($reservablePeople > 0 )
                         <x-button class="ml-4">
-                            編集する
+                            予約する
                         </x-button>
+                        @endif
+                    @else
+                        <span class="text-xs">このイベントは既に予約済みです。</span>
                     @endif
                 </div>
             </form>
             </div>
             </div>
-        </div>
-    </div>
-
-    <div class="py-4">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="max-w-2xl py-4 mx-auto">
-            <div class="text-center py-2">予約状況</div>
-            @if (!$users->isEmpty())
-                <table class="table-auto w-full text-left whitespace-no-wrap">
-                    <thead>
-                        <tr>
-                            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約者名</th>
-                            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約人数</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($reservations as $reservation )
-                            @if(is_null($reservation['canceled_date']))
-                            <tr>
-                                <td class="px-4 py-3">{{ $reservation['name']}}</td>
-                                <td class="px-4 py-3">{{ $reservation['number_of_people']}}</td>
-                            </tr>
-                            @endif
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-            <div class="text-center">
-                まだ予約がありません
-            </div>
-            @endif
-            </div>
-        </div>
         </div>
     </div>
 
