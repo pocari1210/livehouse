@@ -49,6 +49,9 @@ class Event extends Model
         );
     }
     
+    // usersとリレーション設定
+    // 中間テーブルはreservationsとし、
+    // withPivotでデータを取れるようにする
     public function users()
     {
         return $this->belongsToMany(User::class, 'reservations')

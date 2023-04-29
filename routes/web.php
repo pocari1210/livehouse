@@ -42,7 +42,7 @@ Route::middleware('can:user-higher')
 });
 
 Route::get('/{id}', [ReservationController::class, 'detail'])
-    ->name('events.detail');
+->name('events.detail');
 
 Route::middleware([
     'auth:sanctum',

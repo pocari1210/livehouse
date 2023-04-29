@@ -18,10 +18,12 @@ class ReservationController extends Controller
 
     public function detail($id)
     {
-        $event = Event::findOrfail($id);
+        $event = Event::findOrFail($id);
 
         $reservedPeople = DB::table('reservations')
         ->select('event_id', DB::raw('sum(number_of_people) as number_of_people'))
+
+        // canceled_date(キャンセルされたイベント)は合計人数に含めない
         ->whereNull('canceled_date')
         ->groupBy('event_id')
         ->having('event_id', $event->id)

@@ -16,7 +16,6 @@
                     </div>
                     @endif
                     
-                    
                     <div class="w-full mx-auto overflow-auto">
                     <table class="table-auto w-full text-left whitespace-no-wrap">
                         <thead>

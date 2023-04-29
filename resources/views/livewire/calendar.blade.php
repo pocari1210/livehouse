@@ -29,6 +29,7 @@
                                     {{ $eventName }}
                                 </div>
                             </a>
+
                             @if( $eventPeriod > 0 )
                                 @for($k = 0; $k < $eventPeriod ; $k++)
                                     <div class="py-1 px-2 h-8 border border-gray-200 bg-blue-100"></div>
@@ -48,6 +49,6 @@
     </div>
 
 @foreach($events as $event)
-    {{$event->start_date}}<br>
+    {{$event->is_visible}}<br>
 @endforeach
 </div>
