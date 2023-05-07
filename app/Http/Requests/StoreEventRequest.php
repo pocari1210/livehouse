@@ -28,8 +28,14 @@ class StoreEventRequest extends FormRequest
             'information' => ['required', 'max:200'],
             'event_date' => ['required', 'date'],
             'start_time' => ['required'],
+
+            // after:をつけ、start_time(開始日)以降でないと登録できないようにする
             'end_time' => ['required', 'after:start_time'],
+
+            // 1~20の間でmax_people(定員数)を設定する
             'max_people' => ['required', 'numeric', 'between:1,20'],
+
+            //eventを表示・非表示を選択する
             'is_visible' => ['required', 'boolean']
         ];
     }

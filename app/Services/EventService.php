@@ -7,6 +7,10 @@ use Carbon\Carbon;
 
 class EventService
 {
+
+    // ★Eventの重複チェック★
+    // 開始日と終了時間の間に日時が被っているものがないか
+    // チェックする
     public static function checkEventDuplication($eventDate, $startTime, $endTime)
     {
         return DB::table('events')
@@ -16,6 +20,8 @@ class EventService
             ->exists();
     }
 
+    // 既にイベントが存在しているので、 
+    // 重複しているのが1件なら問題なく、1件より多ければエラー
     public static function countEventDuplication($eventDate, $startTime, $endTime)
     {
         return DB::table('events')
@@ -25,6 +31,8 @@ class EventService
             ->count();
     }
 
+    // イベントの日付と時間の文字列連結させ、
+    // createFromFormatで$joinの日付を作成
     public static function joinDateAndTime($date, $time)
     {
         $join = $date. " " .  $time; 
@@ -42,6 +50,10 @@ class EventService
             ->leftJoinSub($reservedPeople, 'reservedPeople', function($join){
                 $join->on('events.id', '=', 'reservedPeople.event_id');
             })
+            
+            // ★whereBetween★
+            // 第一引数のstart_dateを指定し、
+            // $startDate(開始時刻)と$endDate(終了時刻)の間の情報を取得している
             ->whereBetween('start_date', [$startDate, $endDate])
             ->orderBy('start_date', 'asc')
             ->get();

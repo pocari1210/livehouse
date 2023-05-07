@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
-use App\Models\User;
 
 class Event extends Model
 {
@@ -49,6 +48,9 @@ class Event extends Model
         );
     }
     
+    // usersとリレーション設定
+    // 中間テーブルはreservationsとし、
+    // withPivotでデータを取れるようにする
     public function users()
     {
         return $this->belongsToMany(User::class, 'reservations')

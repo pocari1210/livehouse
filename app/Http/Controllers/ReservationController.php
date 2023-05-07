@@ -18,10 +18,12 @@ class ReservationController extends Controller
 
     public function detail($id)
     {
-        $event = Event::findOrfail($id);
+        $event = Event::findOrFail($id);
 
         $reservedPeople = DB::table('reservations')
         ->select('event_id', DB::raw('sum(number_of_people) as number_of_people'))
+
+        // canceled_date(キャンセルされたイベント)は合計人数に含めない
         ->whereNull('canceled_date')
         ->groupBy('event_id')
         ->having('event_id', $event->id)
@@ -29,14 +31,21 @@ class ReservationController extends Controller
 
         if(!is_null($reservedPeople))
         {
+            // 予約可能な人数 = 最大定員 - 予約済みの人数 (キャンセルを除く) 
             $reservablePeople = $event->max_people - $reservedPeople->number_of_people;
         }
         else{
             $reservablePeople = $event->max_people;
         }
 
+        $isReserved = Reservation::where('user_id', '=', Auth::id())
+        ->where('event_id', '=', $id)
+        ->where('canceled_date', '=', null)
+        ->latest()
+        ->first();
+        
         return view('event-detail', 
-        compact('event', 'reservablePeople') );
+        compact('event', 'reservablePeople', 'isReserved') );        
     }
 
     public function reserve(Request $request)
@@ -45,9 +54,14 @@ class ReservationController extends Controller
 
         $reservedPeople = DB::table('reservations')
         ->select('event_id', DB::raw('sum(number_of_people) as number_of_people'))
+
+        // canceled_dateカラムのNullを指定
         ->whereNull('canceled_date')
+        
+
         ->groupBy('event_id')
         ->having('event_id', $event->id)
+        // groupBy('event_id')で条件を絞った後のデータを抽出
         ->first();
 
         if(is_null($reservedPeople) || 

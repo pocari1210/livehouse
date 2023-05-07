@@ -15,7 +15,7 @@ class Calendar extends Component
     public $day; //日付のデータ
     public $checkDay; //日付判定用
     public $dayOfWeek; //曜日
-    public $sevenDaysLater;
+    public $sevenDaysLater; //7日後の日付
     public $events;
 
     public function mount()
@@ -23,8 +23,7 @@ class Calendar extends Component
 	$this->currentDate = CarbonImmutable::today();
     $this->currentWeek = [];
     $this->sevenDaysLater = $this->currentDate->addDays(7);
-	
-    
+
     $this->events = EventService::getWeekEvents(
         $this->currentDate->format('Y-m-d'),
         $this->sevenDaysLater->format('Y-m-d'),
@@ -33,6 +32,7 @@ class Calendar extends Component
         for($i=0;$i<7;$i++){
             $this->day = CarbonImmutable::today()->addDays($i)->format('m月d日');
             $this->checkDay = CarbonImmutable::today()->addDays($i)->format('Y-m-d');
+            // dayName:Carbonの機能で、曜日を表示できる
             $this->dayOfWeek = CarbonImmutable::today()->addDays($i)->dayName;
             array_push($this->currentWeek,[
                 'day'=>$this->day,
@@ -43,17 +43,19 @@ class Calendar extends Component
 
     }
 
-public function getDate($date)
-{
-    $this->currentDate = $date;
-    $this->currentWeek = [];
-    $this->sevenDaysLater = CarbonImmutable::parse($this->currentDate)->addDays(7);
-        
-        
-    $this->events = EventService::getWeekEvents(
-        $this->currentDate,
-        $this->sevenDaysLater->format('Y-m-d'),
-    );
+    // getDateメソッドでは現在の日付を軸に、
+    // 7日間の日付、曜日を取得している
+    public function getDate($date)
+    {
+        $this->currentDate = $date;
+        $this->currentWeek = [];
+        $this->sevenDaysLater = CarbonImmutable::parse($this->currentDate)->addDays(7);
+            
+            
+        $this->events = EventService::getWeekEvents(
+            $this->currentDate,
+            $this->sevenDaysLater->format('Y-m-d'),
+        );
 
     for($i=0;$i<7;$i++){
         $this->day = CarbonImmutable::parse($this->currentDate)->addDays($i)->format('m月d日');
