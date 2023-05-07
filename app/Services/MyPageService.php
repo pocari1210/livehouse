@@ -14,6 +14,8 @@ class MyPageService
         {
         foreach($events->sortBy('start_date') as $event)
         {
+            // キャンセルがなく、現在の日時より先の日時の場合、
+            // 新規のイベントを作成することができる
             if(is_null($event->pivot->canceled_date) &&
             $event->start_date >= Carbon::now()->format('Y-m-d 00:00:00'))
             {
