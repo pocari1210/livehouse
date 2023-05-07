@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MyPageController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,12 @@ Route::middleware('can:user-higher')
 
 Route::get('/{id}', [ReservationController::class, 'detail'])
 ->name('events.detail');
+Route::middleware('can:user-higher')
+->group(function(){
+    Route::get('index', function () {
+        dd('user');
+    });
+});
 
 Route::middleware([
     'auth:sanctum',
