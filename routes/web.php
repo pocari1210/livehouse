@@ -27,6 +27,7 @@ Route::prefix('manager')
         Route::resource('events', EventController::class);
     });
 
+// ユーザー権限でdashboardの表示を行えるようにする
 Route::middleware('can:user-higher')
 ->group(function(){
     Route::get('/dashboard', [ReservationController::class, 'dashboard' ])

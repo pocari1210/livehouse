@@ -51,6 +51,7 @@
                         {{ $event->max_people }}
                     </div>
 
+                    {{-- 予約した人数より多かったら、満席と表示させる --}}
                     <div class="mt-4">
                         @if($reservablePeople <= 0 )
                             <span class="text-red-500 text-xs">このイベントは満員です。</span>
@@ -65,7 +66,7 @@
                     </div>
                 </div>
                 
-
+                    {{-- 予約が完了していたら、再度予約をできない処理にする --}}
                     @if($isReserved === null)
                         <input type="hidden" name="id" value="{{ $event->id }}">  
                         @if($reservablePeople > 0 )

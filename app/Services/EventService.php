@@ -50,6 +50,10 @@ class EventService
             ->leftJoinSub($reservedPeople, 'reservedPeople', function($join){
                 $join->on('events.id', '=', 'reservedPeople.event_id');
             })
+            
+            // ★whereBetween★
+            // 第一引数のstart_dateを指定し、
+            // $startDate(開始時刻)と$endDate(終了時刻)の間の情報を取得している
             ->whereBetween('start_date', [$startDate, $endDate])
             ->orderBy('start_date', 'asc')
             ->get();
