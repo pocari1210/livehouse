@@ -18,6 +18,7 @@ Laravel:9.19<br>
 livewire:2.11<br>
 jetstream:3.00<br>
 Laravel/Vite<br>
+AWS<br>
 
 <h2>作成した背景</h2>
 病院の予約や美容室、試合の遠征の際、バスの予約をネットですることがあり、<br>
