@@ -2,7 +2,9 @@
     <x-authentication-card>
         <x-slot name="logo">
             <div class="w-40">
+            <a href="/">
             <x-authentication-card-logo />
+            </a>
             </div>
         </x-slot>
 
