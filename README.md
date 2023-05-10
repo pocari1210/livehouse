@@ -1,5 +1,15 @@
 <h1>◆livehouse◆</h1>
-livewireを使用し、ライブハウスを想定した予約システムを構築しました。
+livewireを使用し、ライブハウスを想定した予約システムを構築しました。<br>
+
+<a href = "http://18.182.16.40/livehouse/public/">サイトはこちら</a><br>
+
+管理者ログイン<br>
+admin@admin.com<br>
+password123<br>
+
+ユーザーログイン<br>
+user@user.com<br>
+password123<br>
 
 仕様ライブラリ<br>
 php:8.02<br>
