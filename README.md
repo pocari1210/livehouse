@@ -11,15 +11,19 @@ jetstream:3.00<br>
 Laravel/Vite<br>
 AWS<br>
 
-◆管理者権限◆<br>
+<h2>◆管理者権限◆</h2><br>
 admin@admin.com<br>
 password123<br>
 
+マネージャー権限以上で、ナビゲーションにイベント管理の項目が表示されるように設定されてあります。
 
+<img src = "https://github.com/pocari1210/livehouse/assets/98627989/6b582da4-4ff3-48d6-b045-fef93f2c588d" width = 300px height=200px><br>
 
+イベント管理では、過去のイベントの確認、新規のイベントの登録を行うことができます。<br>
+<img src = "https://github.com/pocari1210/livehouse/assets/98627989/27e6fd6c-f6fb-4514-8ff5-f5bc75b949ca" width = 300px height=200px>
+<img src = "https://github.com/pocari1210/livehouse/assets/98627989/51ad14fa-ba7a-4f80-83cf-9776025f4965" width = 300px height=200px><br><br>
 
-
-◆ユーザー権限◆<br>
+<h2>◆ユーザー権限◆</h2><br>
 user@user.com<br>
 password123<br>
 
