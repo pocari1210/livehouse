@@ -1,16 +1,7 @@
 <h1>◆livehouse◆</h1>
-livewireを使用し、ライブハウスを想定した予約システムを構築しました。<br>
+livewireを使用し、ライブハウスを想定した予約システムを構築しました。<br><br>
 
 <a href = "http://18.182.16.40/livehouse/public/">サイトはこちら</a><br>
-
-◆管理者権限◆<br>
-admin@admin.com<br>
-password123<br>
-
-◆ユーザー権限◆<br>
-user@user.com<br>
-password123<br>
-
 
 仕様ライブラリ<br>
 php:8.02<br>
@@ -19,6 +10,21 @@ livewire:2.11<br>
 jetstream:3.00<br>
 Laravel/Vite<br>
 AWS<br>
+
+◆管理者権限◆<br>
+admin@admin.com<br>
+password123<br>
+
+
+
+
+
+◆ユーザー権限◆<br>
+user@user.com<br>
+password123<br>
+
+
+
 
 <h2>作成した背景</h2>
 病院の予約や美容室、試合の遠征の際、バスの予約をネットですることがあり、<br>
